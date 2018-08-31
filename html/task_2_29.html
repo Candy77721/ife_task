@@ -9,10 +9,14 @@
 </head>
 <body>
 	<div class="_form">
+		<!-- label for 用于点击 label 可以聚焦到对应的 input-->
+		<!-- https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/label -->
+		<label for="tName">
 			<span id="textName">名称</span>
-			<input  id="tName" type="text"/>
-			<button id="checkbt" onclick="check()">验证</button>
-			<p id="hName">必填，长度为4~16个字符</p>
+		</label>
+		<input  id="tName" type="text"/>
+		<button id="checkbt" onclick="check()">验证</button>
+		<p id="hName">必填，长度为4~16个字符</p>
     </div>
 </body>
 </html>
