@@ -1,26 +1,8 @@
 <html>
     <head>
-            <script>
-                    //老家(1, 33, 7, 23);
-                    //阿尔及利亚('DZA', '', 'ALG', null);
-                    (function(){
-                        var target_obj = { 'G':$('#locG'), 'S':$('#locS'), 'C':$('#locC'), 'R':$('#locR') };
-                        var value_obj = { 'G':1, 'S':33, 'C':7, 'R':23 };
-                 
-                        target_obj.G.bind("change",function(){ loc.sLoad(target_obj); });
-                        target_obj.S.bind("change",function(){ loc.cLoad(target_obj); });
-                        target_obj.C.bind("change",function(){ loc.rLoad(target_obj); });
-                 
-                        loc.allLoad(target_obj, value_obj);
-                    })();
-                </script>
-        <title></title>
+    <title></title>
     </head>
     <body>
-        <select id="locG" style="width:80px;"><option value="-1">--国家--</option></select>
-<select id="locS" style="width:80px; display:none; "><option value="-1">--省级--</option></select>
-<select id="locC" style="width:80px; display:none;"><option value="-1">--地级--</option></select>
-<select id="locR" style="width:80px; display:none;"><option value="-1">--县级--</option></select>
     </body>
 </html>
 
