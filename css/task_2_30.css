@@ -1,0 +1,52 @@
+*{
+    margin:0;
+    padding:0;
+}
+._form{
+    width:1000px;
+    margin:0px auto;
+}
+dl dt {
+    text-align: right;
+    font-size: 20px;
+    font-family: "微软雅黑";
+    float:left;
+    font-weight:bold;
+    padding:10px;
+    width:100px;
+}
+#tName,#tPassword,#tPassword1,#tEmail,#tTel {
+    margin:10px 0;
+    padding:10px 0;
+    width: 800px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    text-indent: 1em;
+    margin-left: 20px;
+}
+#hName,#hPassword,#hPassword1,#hEmail,#hTel{
+    color: #b4b4b4;
+    font-size: 22px;
+    font-family: "微软雅黑";
+    text-align: left;
+    margin-left: 170px;
+} 
+#checkbt{
+    width: 120px;
+    height: 50px;
+    float:right;
+    margin-right: 60px;
+    background: #2f79b9;
+    color:#ffffff;
+    font-size: 20px;
+    font-family: "微软雅黑";
+    border-radius: 8px;
+    outline:none;
+    cursor: pointer;
+} 
+
+
+
+

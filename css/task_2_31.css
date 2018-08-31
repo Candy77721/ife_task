@@ -1,0 +1,17 @@
+
+.linkage{
+	text-align: center;
+    margin: 20px 10px;
+}
+._radio1,._radio2{
+	
+}
+._radio2{
+	margin-left: 200px;
+}
+#sschool{
+	display:none;
+}
+#company{
+	display:none;
+}

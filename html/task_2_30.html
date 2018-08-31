@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link href="../css/task_2_30.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="../js/task_2_30.js"></script>
+	<title>task2_30</title>
+</head>
+
+<body>
+	<div class="_form">
+		<dl>
+			<dt>名称</dt>
+			<dd>
+				<input type="text" id="tName" onfocus="focusName()" onblur="blurName()" />
+				<p id="hName"></p>
+			</dd>
+			<dt>密码</dt>
+			<dd>
+				<input type="password" id="tPassword" onfocus="focusPass()" onblur="blurPass()" />
+				<p id="hPassword"></p>
+			</dd>
+			<dt>密码确认</dt>
+			<dd>
+				<input type="password" id="tPassword1" onfocus="focusPass1()" onblur="blurPass1()" />
+				<p id="hPassword1"></p>
+			</dd>
+			<dt>邮箱</dt>
+			<dd>
+				<input type="text" id="tEmail" onfocus="focusEmail()" onblur="blurEmail()" />
+				<p id="hEmail"></p>
+			</dd>
+			<dt>手机</dt>
+			<dd>
+				<input type="text" id="tTel" onfocus="focusTel()" onblur="blurTel()" />
+				<p id="hTel"></p>
+			</dd>
+		</dl>
+		<button id="checkbt" onclick="checkAll()">提交</button>
+	</div>
+</body>
+
+</html>
