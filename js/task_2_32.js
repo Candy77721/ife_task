@@ -137,21 +137,29 @@ class FormBuilder {
         });
         // 这里只处理了input，checkbox等没有
         doms.inputDom.addEventListener('blur', e => {
-            var flag = true;
-            var _type = null;
-            for(var i=0;i<item.rules.length;i++){
-                const result = item.rules[i].rule(e.target.value); 
-                if(!result){
-                    flag = false;
-                    _type = i;
-                    break;
-                }
-            } 
-            if(flag){
-                doms.tips.innerHTML = item.success;
-            }else{
-                doms.tips.innerHTML = item.rules[_type].fail;
-            }
+            var errTip = null;
+            item.rules.every(ruleObj=>{
+            const result = ruleObj.rule(e.target.value); 
+            errTip = result?'':ruleObj.fail;
+            return errTip;
+            })
+            doms.tips.innerHTML = errTip || item.success;
+            // var flag = true;
+            // var _type = null;
+            // for(var i=0;i<item.rules.length;i++){
+            // const result = item.rules[i].rule(e.target.value); 
+            // if(!result){
+            // flag = false;
+            // _type = i;
+            // break;
+            // }
+            // } 
+            // if(flag){
+            // doms.tips.innerHTML = item.success;
+            // }else{
+            // doms.tips.innerHTML = item.rules[_type].fail;
+            // }
+            
         });
     }
     //生成一个唯一id用于label for的
