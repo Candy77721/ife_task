@@ -1,29 +1,30 @@
 const FORM_CONFIG = {
-    name: '表单',
+    name: '表单', // 整个表单的名字
     items: [{
         label: '名称',                    // 表单标签
-        type: 'input',                   // 表单类型
+        element: 'input',                   // 表单类型， 支持 input textarea radio checkbox select
+        type: 'text',
         rules: [{
-            type: 'BUILT_IN',
-            rule: function (str) { 
-                return (str.length);
-            },
-            fail: '名称不能为空'               
+            type: 'BUILT_IN',   // 内置的验证规则
+            rule: 'NOT_NULL',   // 非空
+            fail: '名称不能为空' // 失败的提示        
         }, {
-            type: 'CUSTOM',
-            rule: function (str) {
-                const fullWidthCharacters =  str.match(/[^\x00-\xff]/ig); 
-                const len =  (fullWidthCharacters ? fullWidthCharacters.length : 0) + str.length;   
-                return (len >= 4 && len <= 16);
+            type: 'BUILT_IN', // 内置验证规则
+            rule: 'RANGE',    // 范围
+            params: {
+                min: 4,
+                max: 16,
             },
-            fail: '名称格式错误'
+            fail: `请输入${min}至${max}个字`
         }],
-        tips: '必填，长度为4-16个字符',    
+        tips: '必填，长度为4-16个字符',
+        require: true,
         success: '名称格式正确',              
     }, 
     {
         label: '密码',                    
-        type: 'input',                   
+        element: 'input',                   // 表单类型， 支持 input textarea
+        type: 'password',                  
         rules: [{
             type: 'BUILT_IN',
             rule: function (str) { 
@@ -47,10 +48,8 @@ const FORM_CONFIG = {
         type: 'input',                  
         rules: [{
             type: 'BUILT_IN',
-            rule: function (str) { 
-                return (str.length);
-            },
-            fail: '邮箱不能为空'              
+            rule: 'EMAIL',
+            fail: '请输入正确邮箱格式'              
         }, {
             type: 'CUSTOM',
             rule: function (str) {
