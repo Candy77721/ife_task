@@ -111,7 +111,7 @@ const FORM_CONFIG = {
         label:'按钮',
         type:'button',
         rules:'',
-        tips:'选择其中一项或者多项',
+        tips:'提交表单',
         success:'提交完成',
     },
     {
