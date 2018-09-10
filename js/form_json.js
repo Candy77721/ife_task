@@ -13,11 +13,12 @@ const FORM_CONFIG = {  //表单配置对象
     name: '', // 整个表单的名字
     items:    //items为一个object数组，里面包含所需要的item，一个object就是一个key和value的键值对
     [{    
-        label: '',   // 表单标签
+        label: '',   // item的名字
+        key: '', // 用于提交后和对应的输出一一对应
         element: '',// 表单支持的输入类型(input || textarea || radio || checkbox || select)
         type: ' ',    //element支持的类型
         rules: [],   //该表单类型的fail验证规则   
-        tips: '',   //onfocus提示
+        placeholder: '',   //onfocus提示
         require: true,   //内置必填字段
         success: '',   // 验证成功提示           
     }
@@ -39,7 +40,7 @@ const FORM_CONFIG = {
                 min: 4,       //最小长度为4
                 max: 16,      //最大长度为16
             },
-            tips: `请输入${min}至${max}个字`  // onfocus的提示   
+            placeholder: `请输入${min}至${max}个字`  // onfocus的提示  - 使用placeholder体验上可能更好一些  
         },
         {
             type: 'BUILT_IN',   // 内置的验证规则
@@ -76,7 +77,7 @@ const FORM_CONFIG = {
             },
             fail: '邮箱格式错误'  //验证失败的提示
         },],
-        tips: `请输入你的邮箱`,  // onfocus的提示  
+        placeholder: `请输入你的邮箱`,  // onfocus的提示  
         require: true,   //内置必填字段
         success: '格式正确',   // 验证成功提示                            
     }, 
@@ -98,7 +99,7 @@ const FORM_CONFIG = {
             },
             fail: '手机号码格式错误' //验证失败的提示
         }],
-        tips: '请输入手机号码', //onfocus提示  
+        placeholder: '请输入手机号码', //onfocus提示  
         require: true,   //内置必填字段 
         success: '手机号码格式正确',  //验证成功的提示          
     },
@@ -108,45 +109,61 @@ const FORM_CONFIG = {
         label:'单选',    // 表单标签为单选   
         element:'input', // 输入类型input
         type:'radio',   //<input />中的radio
+        // 单选不需要验证，只需要require
         require: true,   //必须选择一项？？？
     },
     {
         label:'多选',   // 表单标签为多选  
         element:'input', // 输入类型input
         type:'checkbox', //<input />中的checkbox
+        rules: //验证规则
+        [{
+            type: 'BUILT_IN', // 内置验证规则
+            rule: 'RANGE',    // 范围
+            params: {         //参数表
+                min: 1,       //最少选一个
+                max: 3,      //最多选三个
+            },
+        }],
+        placeholder: `请选择${min}至${max}项目`,  // onfocus的提示   
         require: true,   //选择一项及多项？？？
     },
     {
         label:'下拉框', // 表单标签为下拉框
         type:'select',  //类型为select
         rules:'',
-        tips:'选择其中一项',
+        placeholder:'选择其中一项',
+        // 不需要额外限制
         success:'选择完成',
     },
     {
-        label:'按钮',    // 表单标签为按钮
-        element:'input', // 输入类型input
-        type:'button',   //类型为button
-        tips:'提交表单',
-        success:'提交完成',
-    },
-    {
-        label:'标题',    // 表单标签为标题
-        type:'title',    //类型为title  ???
-        rules:'',        //同text?     
-        tips:'起个名字',  
-        success:'',
+        // 这个不需要，每个表单会自动生成一个提交
+        // label:'按钮',    // 表单标签为按钮
+        // element:'input', // 输入类型input
+        // type:'button',   //类型为button
+        // placeholder:'提交表单',
+        // success:'提交完成',
     },
     {
         label:'日期',   // 表单标签为日期
         type:'date',   //类型为date  
-        data:true,   //jQuery验证规则？？？
-        tips:'日期'
+        granularity: 'day', // 粒度： day / month / year 最小的可以选择的范围
+        rules:[{
+            type: 'BUILT_IN', // 内置验证规则
+            rule: 'RANGE',    // 可选时间范围
+            params: {         //参数表
+                min: '2000-0-0', //需要符合ISO规则
+                max: '3000-0-0', //需要符合ISO规则
+            },
+        }],
+        placeholder:'日期'
+    },
+    {
+        type:'title',    //类似上面name的东西
+        title:'起个名字',  
     },
     {   //这个真僵硬
-        label:'分割线',   // 表单标签为日期
         type:'line',     // 类型为line  
-        tips:'文本框装饰',
     },
    ]
 }
