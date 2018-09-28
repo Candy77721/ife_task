@@ -1,12 +1,12 @@
-{
+const FORM_JSON={
     "name": "测试表单",
     "items": [{
-        "type": "title",
+        "element": "title",
         "title": "基本信息"
     }, {
         "label": "姓名",
         "element": "input",
-        "type": "text",
+        "type": "name",
         "require": true,
         "success": "格式正确",
         "placeholder": "请输入4-16个字",
@@ -17,12 +17,12 @@
                 "min": 4,
                 "max": 16
             },
-            "fail": "请输入4-16个字"
+            "fail": "格式错误，请重新输入",
         }]
     }, {
         "label": "年龄",
         "element": "input",
-        "type": "number",
+        "type": "age",
         "require": true,
         "success": "格式正确",
         "placeholder": "请输入年龄",
@@ -33,12 +33,12 @@
                 "min": 0,
                 "max": 200
             },
-            "fail": "请输入0-200的数字"
+            "fail": "请输入正确的数字"
         }]
     }, {
         "label": "手机",
         "element": "input",
-        "type": "text",
+        "type": "phone",
         "require": true,
         "success": "格式正确",
         "placeholder": "请输入手机号",
@@ -47,19 +47,21 @@
             "rule": "PHONE",
             "fail": "请输入正确手机号"
         }]
-    }, {
-        "label": "手机",
-        "element": "input",
-        "type": "text",
-        "require": true,
-        "success": "格式正确",
-        "placeholder": "请输入手机号",
-        "rule": [{
-            "type": "BUILT_IN",
-            "rule": "PHONE",
-            "fail": "请输入正确手机号"
-        }]
-    }, {
+    }, 
+    // {
+    //     "label": "手机",
+    //     "element": "input",
+    //     "type": "text",
+    //     "require": true,
+    //     "success": "格式正确",
+    //     "placeholder": "请输入手机号",
+    //     "rule": [{
+    //         "type": "BUILT_IN",
+    //         "rule": "PHONE",
+    //         "fail": "请输入正确手机号"
+    //     }]
+    // }, 
+       {
         "label": "出生日期",
         "element": "input",
         "type": "date",
@@ -79,7 +81,7 @@
     }, {
         "label": "邮箱",
         "element": "input",
-        "type": "text",
+        "type": "email",
         "require": true,
         "success": "格式正确",
         "placeholder": "请输入邮箱",
@@ -91,7 +93,7 @@
     }, {
         "label": "居住地址",
         "element": "input",
-        "type": "text",
+        "type": "add",
         "require": true,
         "success": "格式正确",
         "placeholder": "请输入0-100个字",
@@ -107,7 +109,7 @@
     }, {
         "label": "自我介绍",
         "element": "input",
-        "type": "text",
+        "type": "textarea",
         "require": false,
         "success": "格式正确",
         "placeholder": "请输入0-100个字",
@@ -121,8 +123,8 @@
             "fail": "请输入0-100个字"
         }]
     }, {
-        "type": "title",
-        "title": "高级信息"
+        "element": "title",
+        "title": "更多信息"
     }, {
         "label": "学历",
         "element": "select",
@@ -137,7 +139,7 @@
         "success": "正确",
         "item": ["吃", "喝", "玩"],
         "placeholder": "请选择兴趣",
-        "rules": [{
+        "rule": [{
             "type": "BUILT_IN",
             "rule": "RANGE",
             "params": {
