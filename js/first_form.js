@@ -1,9 +1,14 @@
 /**
  * 1、日期那个应该需要正则匹配或者是别的什么方法，不是简单的比较大小
+ * A: 第一步可以只支持：从A天到B天可以选择（范围）
  * 2、select 和 checkbox不知道怎么写验证规则
+ * A:select不需要额外的，用默认的require即可；checkbox支持range，即选择几个到几个
  * 3、//doms.container生成一个doms容器的意思？
+ * A: container 是最外层的容器，最后需要把container一个个append到页面上
  * 4、当min值为0的时候，会出现不填也验证通过的情况，required如何使用
+ * A: 0和undefined不是一个东西；required是值不是undefined就行
  * 5、代码优化问题
+ * A: 代码格式化问题，可以考虑加一个eslint（比如有的=两边没有空格，有的又有；if else看起来很乱）
  */
 class FormBuilder{
     constructor(config,el){
