@@ -55,7 +55,8 @@ class FormBuilder{
         const placeholder = document.createElement('p');
 
         const guid = this._guid();
-        input.id=guid;
+        input.id = guid;
+        input.setAttribute('required',item.require);
         label.setAttribute('for',guid);
         label.innerHTML = item.label;
 
@@ -69,23 +70,22 @@ class FormBuilder{
         }
     }
     buildSelectDom(item){
-        const len = item.item;
-        const container= document.createElement('div');
+        const len = item.item.length;
+        const container = document.createElement('div');
         const label = document.createElement('label');
         const select = document.createElement('select');
-        const option = document.createElement('option');
         const placeholder = document.createElement('p');
 
         const guid = this._guid();
-        select.id=guid;
+        select.id = guid;
         label.setAttribute('for', guid);
-        label.innerHTML=item.label;
-        // for(var i=0;i<len;i++){
-        //     new Option(item.item[i],i);
-        // }
+        select.setAttribute('required',item.require);
+        label.innerHTML = item.label;
+        for(var i=0;i<len;i++){
+            select[i] = new Option(item.item[i],i);
+        }
         container.appendChild(label);
         container.appendChild(select);
-        container.appendChild(option);
         container.appendChild(placeholder);
         
         return{
@@ -95,21 +95,28 @@ class FormBuilder{
         }
     }
     buildCheckboxDom(item){
-        const container= document.createElement('div');
+        const container = document.createElement('div');
         const label = document.createElement('label');
-        const checkbox = document.createElement('input');
+        const checkbox = document.createElement('div');
         const placeholder = document.createElement('p');
 
         const guid = this._guid();
-        checkbox.id=guid;
+        checkbox.id = guid;
+        checkbox.tabIndex = 1;  //给div添加blur和focus事件
         label.setAttribute('for', guid);
-        label.innerHTML=item.label;
-
+        label.innerHTML = item.label;
+        
         container.appendChild(label);
         container.appendChild(checkbox);
+        for(var i = 0;i < item.item.length; i++){
+            var input = document.createElement('input');
+            input.type = item.element;
+            checkbox.appendChild(input);
+            checkbox.appendChild(document.createTextNode(item.item[i]));
+        }
         container.appendChild(placeholder);
         return{
-            container,
+            container, 
             checkboxDom:checkbox,
             placeholder,
         }
@@ -134,16 +141,16 @@ class FormBuilder{
         doms.inputDom.addEventListener('blur',e=>{
            switch(item.type){
                case 'name':
-                            const minName=item.rule[0].params.min;
-                            const maxName=item.rule[0].params.max;
+                            const minName = item.rule[0].params.min;
+                            const maxName = item.rule[0].params.max;
                             const nameValue = document.getElementById(doms.inputDom.id).value;
                             if(nameValue.length>maxName || nameValue.length<minName ){
                                     doms.placeholder.innerHTML = item.rule[0].fail;
                                 }else{doms.placeholder.innerHTML = item.success;}
                             break;
                 case 'age':
-                            const minAge=item.rule[0].params.min;
-                            const maxAge=item.rule[0].params.max;
+                            const minAge = item.rule[0].params.min;
+                            const maxAge = item.rule[0].params.max;
                             const ageValue = document.getElementById(doms.inputDom.id).value;
                             if(ageValue>maxAge || ageValue<minAge){
                                 doms.placeholder.innerHTML = item.rule[0].fail;
@@ -151,34 +158,38 @@ class FormBuilder{
                             break;
                 case 'phone':
                             const telValue = document.getElementById(doms.inputDom.id).value;
-                            const telReg=/^(1)(\d{10})$/; 
+                            const telReg = /^(1)(\d{10})$/; 
                             if(!telValue.match(telReg)){
                                 doms.placeholder.innerHTML = item.rule[0].fail;
                             }else{doms.placeholder.innerHTML = item.success;}
                             break;
                 case 'date':
                             const dateValue = document.getElementById(doms.inputDom.id).value;
+                            const year = dateValue.substring(0,4);
+                            const month = dateValue.substring(5,7);
+                            const day = dateValue.substring(8,10);
                             
+                            // console.log(year,month,day);
                 case 'email':
                             const emailValue = document.getElementById(doms.inputDom.id).value;
-                            const eReg=/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/ ;
+                            const eReg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/ ;
                             if(!emailValue.match(eReg)){
                                 doms.placeholder.innerHTML = item.rule[0].fail;
                             }else{doms.placeholder.innerHTML = item.success;}
                             break;
                 case 'add':
-                            const minAdd=item.rule[0].params.min;
-                            const maxAdd=item.rule[0].params.max;
+                            const minAdd = item.rule[0].params.min;
+                            const maxAdd = item.rule[0].params.max;
                             const addValue = document.getElementById(doms.inputDom.id).value;
-                            if(addValue.length>maxAdd || addValue.length<minAdd ){
+                            if(addValue.length > maxAdd || addValue.length < minAdd ){
                                     doms.placeholder.innerHTML = item.rule[0].fail;
                                 }else{doms.placeholder.innerHTML = item.success;}
                             break;
                 case 'textarea':
-                            const minInf=item.rule[0].params.min;
-                            const maxInf=item.rule[0].params.max;
+                            const minInf = item.rule[0].params.min;
+                            const maxInf = item.rule[0].params.max;
                             const infValue = document.getElementById(doms.inputDom.id).value;
-                            if(infValue.length>maxInf || infValue.length<minInf ){
+                            if(infValue.length > maxInf || infValue.length < minInf ){
                                     doms.placeholder.innerHTML = item.rule[0].fail;
                                 }else{doms.placeholder.innerHTML = item.success;}
                             break;
@@ -189,10 +200,25 @@ class FormBuilder{
         doms.selectDom.addEventListener('focus',e=>{
             doms.placeholder.innerHTML = item.placeholder;
         });
+        doms.selectDom.addEventListener('blur',e=>{
+            doms.placeholder.innerHTML = item.success;
+        });
     }
     checkboxEventBinder(doms,item){
         doms.checkboxDom.addEventListener('focus',e=>{
             doms.placeholder.innerHTML = item.placeholder;
+        });
+        doms.checkboxDom.addEventListener('blur',e=>{
+            const minCheck = item.rule[0].params.min;
+            const maxCheck = item.rule[0].params.max;
+            const count = 0;
+            for(var i = 0; i < item.item.length; i ++){
+                var check = document.getElementsByTagName("input")[i];
+                count += check.checked ? 1 : 0;
+            }
+            minCheck <= count <= maxCheck ?
+            doms.placeholder.innerHTML = item.success :
+            doms.placeholder.innerHTML = item.rule.fai;
         });
     }
     _guid() {
