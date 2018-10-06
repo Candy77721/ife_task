@@ -89,6 +89,16 @@ const FORM_JSON={
             "type": "BUILT_IN",
             "rule": "EMAIL",
             "fail": "请输入正确邮箱"
+        }, {
+            "type": "BUILT_IN",
+            "rule": "END_WITHS",
+            "params": 'qq.com',
+            "fail": "请输入QQ邮箱"
+        }, {
+            "type": "USER",
+            "function": 'fuction(params) { return ture }',
+            "params": 'qq.com',
+            "fail": "请输入QQ邮箱"
         }]
     }, {
         "label": "居住地址",
@@ -143,10 +153,10 @@ const FORM_JSON={
             "type": "BUILT_IN",
             "rule": "RANGE",
             "params": {
-                "min": 0,
+                "min": 2,
                 "max": 3
             },
-            "fail": "请选择0-3个"
+            "fail": "请选择2-3个"
         }]
     }]
 }

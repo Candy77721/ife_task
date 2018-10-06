@@ -56,7 +56,7 @@ class FormBuilder{
 
         const guid = this._guid();
         input.id = guid;
-        input.setAttribute('required',item.require);
+        // input.setAttribute('required',item.require);
         label.setAttribute('for',guid);
         label.innerHTML = item.label;
 
@@ -79,7 +79,7 @@ class FormBuilder{
         const guid = this._guid();
         select.id = guid;
         label.setAttribute('for', guid);
-        select.setAttribute('required',item.require);
+        // select.setAttribute('required',item.require);
         label.innerHTML = item.label;
         for(var i=0;i<len;i++){
             select[i] = new Option(item.item[i],i);
@@ -208,17 +208,17 @@ class FormBuilder{
         doms.checkboxDom.addEventListener('focus',e=>{
             doms.placeholder.innerHTML = item.placeholder;
         });
-        doms.checkboxDom.addEventListener('blur',e=>{
+        doms.checkboxDom.addEventListener('change',e=>{
             const minCheck = item.rule[0].params.min;
             const maxCheck = item.rule[0].params.max;
-            const count = 0;
+            let count = 0;
             for(var i = 0; i < item.item.length; i ++){
-                var check = document.getElementsByTagName("input")[i];
+                var check = doms.checkboxDom.getElementsByTagName("input")[i];
                 count += check.checked ? 1 : 0;
             }
-            minCheck <= count <= maxCheck ?
+            (minCheck <= count && count <= maxCheck) ?
             doms.placeholder.innerHTML = item.success :
-            doms.placeholder.innerHTML = item.rule.fai;
+            doms.placeholder.innerHTML = item.rule[0].fail;
         });
     }
     _guid() {
